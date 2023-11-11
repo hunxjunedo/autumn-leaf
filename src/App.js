@@ -79,7 +79,6 @@ var clicked = false
       },
       complete: (xhr) => {
         if (xhr.status == 200) {
-          console.log(xhr)
           setquoteinfo(xhr.responseJSON[0])
 
         }
@@ -110,7 +109,6 @@ var clicked = false
   }, [quotecategory, refresh])
 
 
-  console.log(process.env)
 
   return (
     <div className='parent' style={

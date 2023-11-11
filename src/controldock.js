@@ -2,7 +2,6 @@ import Draggable from "react-draggable";
 import validator from "validator";
 import { Button, ConfigProvider, Input, Select, theme } from "antd";
 export default function(props) {
-    console.log(props)
     const {spotifylink, setspotifylink, quotecategory, refresh, setrefresh, setquotecategory, loading} = props
     const themeclr = 'orange'; const themedark = "rgb(1, 1, 1,0.75)"; const themedarkfull = "rgb(1, 1, 1)"
     const quotecategroies = [
