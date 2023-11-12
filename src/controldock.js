@@ -2,7 +2,7 @@ import Draggable from "react-draggable";
 import validator from "validator";
 import { Button, ConfigProvider, Input, Select, theme } from "antd";
 export default function(props) {
-    const {spotifylink, setspotifylink, quotecategory, refresh, setrefresh, setquotecategory, loading} = props
+    const {spotifylink,ismobile, setspotifylink, quotecategory, refresh, setrefresh, setquotecategory, loading} = props
     const themeclr = 'orange'; const themedark = "rgb(1, 1, 1,0.75)"; const themedarkfull = "rgb(1, 1, 1)"
     const quotecategroies = [
         {"value": "amazing", "label": "amazing"},
@@ -72,7 +72,7 @@ export default function(props) {
         {"value": "success", "label": "success"}
       ]
     const dockstyles = {
-        width: "25vw",
+        width: ismobile ? '70vw' : '25vw',
         cursor: 'move',
         position : "absolute",
         bottom: 10,
@@ -83,39 +83,46 @@ export default function(props) {
         display: 'grid',
         justfiyItems: 'center',
         padding: "1vw",
-        zIndex: 10
+        zIndex: 10,
+        fontSize: ismobile ? 11 : 23
     }
 
     const basicdivstyles = {
         display: "grid",
-        width: '23vw',
-        margin: 5,
-        padding: 5,
-        gridTemplateColumns: "repeat(2, 1fr)",
+        width: '90%',
+        padding: ismobile ? 3 : 5,
+        gridTemplateColumns: "auto",
+        gridAutoFlow: 'column',
         justifySelf: 'center',
-        color: themeclr
+        color: themeclr,
+        height: 'fit-content',
+        alignItems: 'center'
     }
 
     const dataenterstyles ={
-        width: '15vw',
+        width: '90%',
         borderRadius: 10,
         color: themeclr,
         paddding: 2,
         background: 'transparent',
         border:   `1px solid ${themeclr}`,
-        backdropFilter: 'blur(10px)'
+        backdropFilter: 'blur(10px)',
+        justifySelf: 'center',
+        fontSize: ismobile ? 11 : 23
     }
     return (
           <ConfigProvider theme={{
             components: {
-            select: {
-                selectorBg: themedark
+            Select: {
+                selectorBg: themedark,
+                optionFontSize: ismobile ? 11 : 23,
+                size: ismobile ? 11 : 23,
             },
             Button: {
                 primaryColor	: themeclr,
                 primaryShadow: 'none',
-                margin: 2,
-                borderColorDisabled: 'white'
+                borderColorDisabled: 'white',
+                fontSize: ismobile ? 11 : 23
 
             }
             }, token: {
@@ -128,19 +135,19 @@ export default function(props) {
 
             }
           }}>
-        <Draggable>
+        <Draggable cancel=".inside">
           <div style={dockstyles} >
-              <div style={basicdivstyles}> 
-              Spotify Song: <Input allowClear={true} disabled={loading} draggable={false} spellCheck={false} defaultValue={spotifylink}  onPressEnter={(e) => {validator.isURL(e.target.value) ? setspotifylink(e.target.value) : console.log('wrong url')}} style={dataenterstyles} />
+              <div  style={basicdivstyles}> 
+              Spotify Song: <Input className="inside" allowClear={true} disabled={loading} draggable={false} spellCheck={false} defaultValue={spotifylink}  onPressEnter={(e) => {validator.isURL(e.target.value) ? setspotifylink(e.target.value) : console.log('wrong url')}} style={dataenterstyles} />
               </div>
-               <div style={basicdivstyles}>
-               Quote Category: <Select showSearch disabled={loading} style={dataenterstyles} defaultValue={quotecategory} onChange={setquotecategory} options={quotecategroies}/>
+               <div  style={basicdivstyles}>
+               Quote Category: <Select className="inside" showSearch disabled={loading} style={dataenterstyles} defaultValue={quotecategory} onChange={setquotecategory} options={quotecategroies}/>
                </div>
-          <div style={{display: 'grid', 'gridTemplateColumns': 'repeat(2, 1fr)', gridAutoFlow: 'column'}}>
-          <Button style={{margin: 5}}>
+          <div className="inside" style={{display: 'grid', 'gridTemplateColumns': 'repeat(2, 1fr)', gridAutoFlow: 'column'}}>
+          <Button style={{margin: ismobile ? 3 : 5}} >
                  Reset
                </Button>
-                <Button style={{margin: 5}} onClick={() => {setrefresh(!refresh)}} disabled={loading} type="primary">
+                <Button style={{margin: ismobile ? 3 : 5}} onClick={() => {setrefresh(!refresh)}} disabled={loading} type="primary">
                     Refresh
                 </Button>
           </div>

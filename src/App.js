@@ -22,6 +22,7 @@ function App() {
   const [spotifylink, setspotifylink] = useState("https://open.spotify.com/playlist/37i9dQZF1DWWQRwui0ExPn")
   const [quotecategory, setquotecategory] = useState("random")
   const [refresh, setrefresh] = useState(false)
+  const ismobile = window.innerWidth <= 700
   const parentstyles = {
     'backgroundImage': `url(${bgimage})`,
     'width': '100vw',
@@ -31,6 +32,7 @@ function App() {
     'justifyItems': 'center',
     'alignItems': 'center'
   }
+  const glowspread = ismobile ? 100 : 70
 var clicked = false
   $(".glower").on('mousedown', e => { clicked = true});
   $(document).on('mousemove', e => {clicked = false});
@@ -50,7 +52,7 @@ var clicked = false
     color: 'yellow',
     borderRadius: '100%',
     position: 'absolute',
-    boxShadow: `0px 0px 150px 70px ${availableglows[glowcolor].shadow}`,
+    boxShadow: `0px 0px 150px ${glowspread}px ${availableglows[glowcolor].shadow}`,
     backdropFilter: 'blur(8px)',
     border: '0px solid',
     zIndex: 1,
@@ -60,7 +62,7 @@ var clicked = false
 
   const playerStyles = {
     position: 'absolute',
-    left: 10,
+    left: ismobile ? "" : 10,
     top: 10,
     maxWidth: 'fit-content',
     boxShadow: "rgba(0, 1, 4, 0.95) 0px 48px 100px 0px",
@@ -70,7 +72,9 @@ var clicked = false
 
   useEffect(() => {
     //fetch the quote
+    $(".main-container").css("opacity", "0").css("transform", "translate(0, -5)")
     setloading(true);
+   
     $.ajax({
       url: `https://api.api-ninjas.com/v1/quotes${quotecategory !== 'random' ? "?category=" + quotecategory : ""}`,
       method: 'GET',
@@ -80,6 +84,10 @@ var clicked = false
       complete: (xhr) => {
         if (xhr.status == 200) {
           setquoteinfo(xhr.responseJSON[0])
+          $(".main-container").delay(1000).queue(function(next){
+            $(this).css('opacity', '1').css("transform", "translate(0, 5)")
+            next();
+          })
 
         }
       }
@@ -119,8 +127,8 @@ var clicked = false
 
       </Draggable>
 
-      <Quoter quoteinfo={quoteinfo} loading={loading} />
-      <Controldock {...{quotecategory, setquotecategory, spotifylink, setspotifylink, loading, refresh, setrefresh}} />
+      <Quoter ismobile={ismobile} quoteinfo={quoteinfo} loading={loading} />
+      <Controldock {...{quotecategory, setquotecategory, spotifylink,ismobile, setspotifylink, loading, refresh, setrefresh}} />
   
       <Draggable>
 

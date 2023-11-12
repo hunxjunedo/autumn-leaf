@@ -1,15 +1,19 @@
 import Draggable from "react-draggable"
 import { FadeLoader } from "react-spinners"
+import $ from 'jquery'
 
 export default function(props) {
-    var {quoteinfo, loading } = props
+  $(document).ready(function(){
+   
+  })
+    var {quoteinfo, loading, ismobile } = props
     return (
         <Draggable>
         <div className='main-container' style={
           {
             'max-width': window.innerWidth > 900 ? '30vw' : '70vw',
             padding: '30px',
-            fontSize: 19,
+            fontSize: ismobile ? 12 : 19,
             'background': 'rgb(251, 251, 251, 0.53)',
             backdropFilter: 'blur(20px)',
             lineHeight: 1.5,
@@ -18,7 +22,9 @@ export default function(props) {
             boxShadow: "rgba(0, 1, 4, 0.95) 0px 48px 100px 0px",
             cursor: "move",
             zIndex: 10,
-            userSelect: 'none'
+            userSelect: 'none',
+            opacity: 0,
+            transition: '1s'
           }
         }>
           {!loading ?
