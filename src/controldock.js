@@ -4,6 +4,7 @@ import { Button, ConfigProvider, Input, Select, theme } from "antd";
 export default function(props) {
     const {spotifylink,ismobile, setspotifylink, quotecategory, refresh, setrefresh, setquotecategory, loading} = props
     const themeclr = 'orange'; const themedark = "rgb(1, 1, 1,0.75)"; const themedarkfull = "rgb(1, 1, 1)"
+    const size = ismobile ? 11 : 16;
     const quotecategroies = [
         {"value": "amazing", "label": "amazing"},
         {"value": "anger", "label": "anger"},
@@ -84,7 +85,7 @@ export default function(props) {
         justfiyItems: 'center',
         padding: "1vw",
         zIndex: 10,
-        fontSize: ismobile ? 11 : 23
+        fontSize: size
     }
 
     const basicdivstyles = {
@@ -108,21 +109,21 @@ export default function(props) {
         border:   `1px solid ${themeclr}`,
         backdropFilter: 'blur(10px)',
         justifySelf: 'center',
-        fontSize: ismobile ? 11 : 23
-    }
+        fontSize: size}
+
     return (
           <ConfigProvider theme={{
             components: {
             Select: {
                 selectorBg: themedark,
-                optionFontSize: ismobile ? 11 : 23,
-                size: ismobile ? 11 : 23,
+                optionFontSize: size,
+                size: size,
             },
             Button: {
                 primaryColor	: themeclr,
                 primaryShadow: 'none',
                 borderColorDisabled: 'white',
-                fontSize: ismobile ? 11 : 23
+                fontSize: size
 
             }
             }, token: {
