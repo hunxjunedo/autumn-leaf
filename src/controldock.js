@@ -3,8 +3,8 @@ import validator from "validator";
 import { Button, ConfigProvider, Input, Select, theme } from "antd";
 export default function(props) {
     const {spotifylink,ismobile, setspotifylink, quotecategory, refresh, setrefresh, setquotecategory, loading} = props
-    const themeclr = 'orange'; const themedark = "rgb(1, 1, 1,0.75)"; const themedarkfull = "rgb(1, 1, 1)"
-    const size = ismobile ? 11 : 16;
+    const {themeclr, themedark, size} = props
+
     const quotecategroies = [
         {"value": "amazing", "label": "amazing"},
         {"value": "anger", "label": "anger"},

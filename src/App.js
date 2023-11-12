@@ -6,11 +6,14 @@ import Draggable from 'react-draggable';
 import $ from 'jquery'
 import Controldock from './controldock';
 import Quoter from './quote'
+import collection from './piclicks.json';
 import { motion } from "framer-motion"
 import html2canvas from 'html2canvas';
 import { Spotify } from 'react-spotify-embed';
+import CreditBar from './creditbar';
 const [samplequote, sampleauthor] = ['You take away all the other luxuries in life, and if you can make someone smile and laugh, you have given the most special gift: happiness.', 'Brad Garrett']
 const apikey = process.env.REACT_APP_APIKEY
+
 
 function App() {
   
@@ -22,7 +25,10 @@ function App() {
   const [spotifylink, setspotifylink] = useState("https://open.spotify.com/playlist/37i9dQZF1DWWQRwui0ExPn")
   const [quotecategory, setquotecategory] = useState("random")
   const [refresh, setrefresh] = useState(false)
+  const [imagecredits, setimagecredits] = useState({name: 'John Doe', link: 'https://www.pexels.com/@johndo'})
   const ismobile = window.innerWidth <= 700
+  const size = ismobile ? 11 : 16;
+  const themeclr = 'orange'; const themedark = "rgb(1, 1, 1,0.75)"; const themedarkfull = "rgb(1, 1, 1)"
   const parentstyles = {
     'backgroundImage': `url(${bgimage})`,
     'width': '100vw',
@@ -93,26 +99,12 @@ var clicked = false
       }
     })
     //fetch the image
-    $.ajax({
-      url: `https://api.api-ninjas.com/v1/randomimage`,
-      method: 'GET',
-      headers: {
-        'x-api-key': apikey
-      },
-      complete: (xhr) => {
-        if (xhr.status == 200) {
-          const base64String = xhr.responseText;
-          let localurl = `data:image/png;base64,${base64String}`;
-          setimage(localurl)
-          setloading(false)
+    let randomimage = collection.photos[Math.floor(Math.random()*collection.photos.length)];
+    let imagelink = (ismobile ? randomimage.src.portrait : randomimage.src.landscape) || randomimage.src.original
 
-        }
-      },
-      error: ()=> {
-        setloading(false)
-      }
-    })
-
+    setimagecredits({name: randomimage.photographer, link: randomimage.photographer_url})
+    setimage(imagelink)
+    setloading(false)
 
   }, [quotecategory, refresh])
 
@@ -128,12 +120,14 @@ var clicked = false
       </Draggable>
 
       <Quoter ismobile={ismobile} quoteinfo={quoteinfo} loading={loading} />
-      <Controldock {...{quotecategory, setquotecategory, spotifylink,ismobile, setspotifylink, loading, refresh, setrefresh}} />
+      <Controldock {...{quotecategory, size, setquotecategory, themeclr, themedark, spotifylink,ismobile, setspotifylink, loading, refresh, setrefresh}} />
   
       <Draggable>
 
         <div className='glower' onClick={glowchange} style={bulbstyles}   ></div>
       </Draggable>
+
+      <CreditBar credits={imagecredits} ismobile={ismobile} themeclr={themeclr} size={size} darkclr={themedark} />
     </div>
   );
 }
