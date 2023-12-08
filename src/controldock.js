@@ -139,7 +139,7 @@ export default function(props) {
         <Draggable cancel=".inside">
           <div style={dockstyles} >
               <div  style={basicdivstyles}> 
-              Spotify Song: <Input className="inside" allowClear={true} disabled={loading} draggable={false} spellCheck={false} defaultValue={spotifylink}  onPressEnter={(e) => {validator.isURL(e.target.value) ? setspotifylink(e.target.value) : console.log('wrong url')}} style={dataenterstyles} />
+              Spotify Song: <Input placeholder="hit enter" className="inside" allowClear={true} disabled={loading} draggable={false} spellCheck={false} defaultValue={spotifylink}  onPressEnter={(e) => {validator.isURL(e.target.value) ? setspotifylink(e.target.value) : console.log('wrong url')}} style={dataenterstyles} />
               </div>
                <div  style={basicdivstyles}>
                Quote Category: <Select className="inside" showSearch disabled={loading} style={dataenterstyles} defaultValue={quotecategory} onChange={setquotecategory} options={quotecategroies}/>
