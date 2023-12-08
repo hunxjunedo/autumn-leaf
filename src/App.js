@@ -30,7 +30,7 @@ function App() {
   const [loading, setloading] = useState(false)
   const [avgcolor, setavgcolor] = useState(themeclr)
   const [glowcolor, setglowcolor] = useState(0);
-  const [spotifylink, setspotifylink] = useState("https://open.spotify.com/album/2eAEP34ZdyQrvI7w9IAOdS?si=eadf0e8dd333494a")
+  const [spotifylink, setspotifylink] = useState("https://open.spotify.com/playlist/5tDJfNk5EooyoDwpF8tNJH?si=863b831f0b8a4936")
   const [quotecategory, setquotecategory] = useState("random")
   const [refresh, setrefresh] = useState(false)
   const [imagecredits, setimagecredits] = useState({name: 'John Doe', link: 'https://www.pexels.com/@johndo'})

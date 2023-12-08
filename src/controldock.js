@@ -133,6 +133,8 @@ export default function(props) {
                 colorPrimary: 'transparent',
                 colorPrimaryText: themeclr,
                 colorTextDisabled	: 'white',
+                colorIcon: themeclr,
+                colorTextQuaternary	: themeclr
 
             }
           }}>
