@@ -18,7 +18,14 @@ const apikey = process.env.REACT_APP_APIKEY
 function App() {
   const themeclr = 'orange'; const themedark = "rgb(1, 1, 1,0.75)"; const themedarkfull = "rgb(1, 1, 1)"
   const [bgimage, setimage] = useState(defaultBG)
-  const availableglows = [{color: 'rgba(255,241,168,0.9)', shadow: 'rgba(255,241,168,0.9)'}, {color: 'radial-gradient(circle, rgba(204, 212, 241, 0.97) 50%, rgb(165, 161, 199) 150%)', shadow: 'rgb(234, 226, 255)'}]
+  const availableglows = [
+    {color: 'rgba(255,241,168,0.9)', shadow: 'rgba(255,241,168,0.9)'}, 
+    {color: 'radial-gradient(circle, rgba(204, 212, 241, 0.97) 50%, rgb(165, 161, 199) 150%)', shadow: 'rgb(234, 226, 255)'}, 
+    {color: 'rgb(239 143 143 / 84%)', shadow: 'rgb(255, 101, 164)'},
+    {color: 'rgba(225, 129, 0, 0.9)', shadow: 'rgb(235 124 5)'},
+    {color: 'rgb(162 148 255 / 51%)', shadow: 'rgb(255 115 248)'}
+
+]
   const [quoteinfo, setquoteinfo] = useState({ quote: samplequote, author: sampleauthor })
   const [loading, setloading] = useState(false)
   const [avgcolor, setavgcolor] = useState(themeclr)
@@ -46,10 +53,6 @@ var clicked = false
   $(".glower").on('mouseup', e => {clicked ?  glowcolor + 1 >= availableglows.length ? setglowcolor(0) : setglowcolor(glowcolor + 1) : console.log('good');  });
   clicked = false;
 
-  const glowchange = (e) => {
-    //check of its last index
-   
-  }
  
   const bulbstyles = {
     width: '5vw',
@@ -132,7 +135,7 @@ var clicked = false
   
       <Draggable>
 
-        <div className='glower' onClick={glowchange} style={bulbstyles}   ></div>
+        <div className='glower' style={bulbstyles}   ></div>
       </Draggable>
 
       <CreditBar credits={imagecredits} ismobile={ismobile} themeclr={themeclr} size={size} darkclr={themedark} />
