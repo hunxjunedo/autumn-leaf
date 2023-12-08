@@ -15,7 +15,7 @@ export default function(props) {
             padding: '30px',
             fontSize: ismobile ? 12 : 19,
             'background': 'rgb(251, 251, 251, 0.53)',
-            backdropFilter: 'blur(20px)',
+            backdropFilter: 'blur(40px)',
             lineHeight: 1.5,
             borderRadius: '20px',
             boxSizing: 'border-box',

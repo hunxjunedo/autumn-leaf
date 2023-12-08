@@ -16,11 +16,12 @@ const apikey = process.env.REACT_APP_APIKEY
 
 
 function App() {
-  
+  const themeclr = 'orange'; const themedark = "rgb(1, 1, 1,0.75)"; const themedarkfull = "rgb(1, 1, 1)"
   const [bgimage, setimage] = useState(defaultBG)
   const availableglows = [{color: 'rgba(255,241,168,0.9)', shadow: 'rgba(255,241,168,0.9)'}, {color: 'radial-gradient(circle, rgba(204, 212, 241, 0.97) 50%, rgb(165, 161, 199) 150%)', shadow: 'rgb(234, 226, 255)'}]
   const [quoteinfo, setquoteinfo] = useState({ quote: samplequote, author: sampleauthor })
   const [loading, setloading] = useState(false)
+  const [avgcolor, setavgcolor] = useState(themeclr)
   const [glowcolor, setglowcolor] = useState(0);
   const [spotifylink, setspotifylink] = useState("https://open.spotify.com/playlist/37i9dQZF1DWWQRwui0ExPn")
   const [quotecategory, setquotecategory] = useState("random")
@@ -28,9 +29,9 @@ function App() {
   const [imagecredits, setimagecredits] = useState({name: 'John Doe', link: 'https://www.pexels.com/@johndo'})
   const ismobile = window.innerWidth <= 700
   const size = ismobile ? 11 : 16;
-  const themeclr = 'orange'; const themedark = "rgb(1, 1, 1,0.75)"; const themedarkfull = "rgb(1, 1, 1)"
   const parentstyles = {
     'backgroundImage': `url(${bgimage})`,
+    'backgroundColor': avgcolor,
     'width': '100vw',
     'height': '100vh',
     'backgroundSize': 'cover',
@@ -100,9 +101,16 @@ var clicked = false
     })
     //fetch the image
     let randomimage = collection.photos[Math.floor(Math.random()*collection.photos.length)];
+    //remove if that kind of image
+
+    while(randomimage.photographer === 'Polina Tankilevitch'){
+      console.log('rolling...')
+      randomimage = collection.photos[Math.floor(Math.random()*collection.photos.length)];
+    }
     let imagelink = (ismobile ? randomimage.src.portrait : randomimage.src.landscape) || randomimage.src.original
 
     setimagecredits({name: randomimage.photographer, link: randomimage.photographer_url})
+    setavgcolor(randomimage.avg_color)
     setimage(imagelink)
     setloading(false)
 
